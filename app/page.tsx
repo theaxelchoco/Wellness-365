@@ -7,8 +7,32 @@ import { useState } from 'react'
 const inter = Inter({ subsets: ['latin'] })
 const khula = Khula({ subsets: ['latin'], weight: '800' })
 
+const Modal = ({ content, onClose }) => (
+  <div className="fixed inset-0 flex items-center justify-center z-50">
+    <div className="bg-white p-8 rounded shadow-lg w-96 h-96 mx-4 relative">
+      <button onClick={onClose} className="absolute top-2 right-2">
+        <svg className="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <div>{content}</div>
+    </div>
+  </div>
+)
+
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [modalContent, setModalContent] = useState('')
+
+  const handlePopup = (content: string) => {
+    setModalContent(content)
+    setIsOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsOpen(false)
+    setModalContent('')
+  }
 
   return (
     <main className="">
@@ -24,20 +48,20 @@ export default function Home() {
           </div>
           
           <ol className="flex flex-row gap-30 mx-auto items-center text-lg">
-            <li className={`${inter.className} font-bold`}>
-              <a>About Us</a>
+            <li className={`${inter.className} font-bold cursor-pointer`} onClick={() => handlePopup('About Us content')}>
+              About Us
             </li>
 
-            <li className={`${inter.className} font-bold`}>
+            <li className={`${inter.className} font-bold cursor-pointer`} onClick={() => handlePopup('Contact content')}>
               Contact
             </li>
 
-            <li className={`${inter.className} font-bold`}>
+            <li className={`${inter.className} font-bold cursor-pointer`} onClick={() => handlePopup('Help content')}>
               Help
             </li>
 
             <li className={`${inter.className} font-bold`}>
-              Journal
+              <Link href="/journal">Journal</Link>
             </li>
           </ol>
 
@@ -47,6 +71,8 @@ export default function Home() {
           </div>
         </nav>
       </div>
+
+      {isOpen && <Modal content={modalContent} onClose={closeModal} />}
     </main>
   )
 }
