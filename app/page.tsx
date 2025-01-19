@@ -4,19 +4,31 @@ import Link from 'next/link'
 import Sidebar from "@/components/Sidebar"
 import type { Task } from "@/components/Sidebar"
 import { Inter, Khula } from 'next/font/google'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { fetchTasks } from './services/taskService'
 
 const inter = Inter({ subsets: ['latin'] })
 const khula = Khula({ subsets: ['latin'], weight: '800' })
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
-  const mockData: Task[] = [
-    { date: '2025-01-01', task: 'New Year\'s Day' },
-    { date: '2025-01-02', task: 'Met Sally' },
-    { date: '2025-01-03', task: 'Completed a puzzle' },
-    { date: '2025-01-04', task: 'Watched TED Talk' },
-  ];
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getEntries = async () => {
+      try {
+        const tasksData = await fetchTasks();
+        setTasks(tasksData);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    getEntries();
+  }, []);
 
   return (
     <main className="">
@@ -58,8 +70,9 @@ export default function Home() {
 
       <Sidebar
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)} // Closes the sidebar
-        data={mockData} // List of sidebar items
+        onClose={() => setIsOpen(false)}
+        data={tasks}
+        loading={loading}
       />
     </main>
   )
