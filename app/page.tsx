@@ -1,6 +1,8 @@
 "use client"
 import Image from 'next/image'
 import Link from 'next/link'
+import Sidebar from "@/components/Sidebar"
+import type { Task } from "@/components/Sidebar"
 import { Inter, Khula } from 'next/font/google'
 import { useState } from 'react'
 
@@ -9,6 +11,12 @@ const khula = Khula({ subsets: ['latin'], weight: '800' })
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+  const mockData: Task[] = [
+    { date: '2025-01-01', task: 'New Year\'s Day' },
+    { date: '2025-01-02', task: 'Met Sally' },
+    { date: '2025-01-03', task: 'Completed a puzzle' },
+    { date: '2025-01-04', task: 'Watched TED Talk' },
+  ];
 
   return (
     <main className="">
@@ -47,6 +55,12 @@ export default function Home() {
           </div>
         </nav>
       </div>
+
+      <Sidebar
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)} // Closes the sidebar
+        data={mockData} // List of sidebar items
+      />
     </main>
   )
 }
