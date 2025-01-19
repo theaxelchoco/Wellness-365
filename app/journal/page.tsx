@@ -38,7 +38,7 @@ const JournalPage: React.FC = () => {
     }, []);
 
     return (
-        <div className="bg-[#FFFFF5] min-h-screen flex items-center justify-center p-4">
+        <div className="bg-[#FFFFF5] min-h-screen flex items-center justify-center p-4 mt-12">
             <div className="bg-[#FFF5D7] p-6 shadow-md rounded-lg w-full max-w-4xl">
                 <h1 className="text-4xl font-bold text-center mb-6 text-gray-800">
                     Moments of the Year
