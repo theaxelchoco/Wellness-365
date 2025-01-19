@@ -90,7 +90,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${josefin_sans.className} bg-[#FFFFF5]`}>
         <Navbar />
-        <main className="pt-16">{children}</main> {/* Added padding to avoid overlap */}
+        <main className="">{children}</main>
       </body>
     </html>
   );
