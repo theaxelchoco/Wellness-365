@@ -56,7 +56,11 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
           </button>
-          <p className={`${josefin_sans.className} text-3xl font-extrabold text-white`}>Wellness365</p>
+          <Link href="/">
+            <p className={`${josefin_sans.className} text-3xl font-extrabold text-white cursor-pointer`}>
+              Wellness365
+            </p>
+          </Link>
         </div>
 
         <ol className="flex flex-row gap-30 mx-auto items-center text-lg">
@@ -90,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${josefin_sans.className} bg-[#FFFFF5]`}>
         <Navbar />
-        <main className="">{children}</main>
+        <main className="mt-12">{children}</main>
       </body>
     </html>
   );
